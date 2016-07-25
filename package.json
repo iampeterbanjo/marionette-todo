@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/webpack .",
-    "watch:app": "node_modules/nodemon/bin/nodemon.js --watch app -x 'npm run build'",
-    "watch": "node_modules/parallelshell/index.js 'npm run watch:app' 'node_modules/lite-server/bin/lite-server'"
+    "watch:app": "node_modules/nodemon/bin/nodemon.js --watch app -e js,html -x 'npm run build'",
+    "watch:static": "node_modules/browser-sync/bin/browser-sync.js start --server --reload-delay=1000",
+    "watch": "node_modules/parallelshell/index.js 'npm run watch:app' 'npm run watch:static'"
   },
   "keywords": [
     "marionette",
@@ -20,8 +21,8 @@
     "backbone.babysitter": "^0.1.12",
     "backbone.marionette": "^2.4.7",
     "backbone.wreqr": "^1.3.7",
+    "browser-sync": "^2.13.0",
     "jquery": "^3.1.0",
-    "lite-server": "^2.2.2",
     "nodemon": "^1.9.2",
     "parallelshell": "^2.0.0",
     "underscore": "^1.8.3",

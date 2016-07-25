@@ -1,1 +1,6 @@
-<p>Hello World</p>
+<h2>Tasks</h2>
+<ul>
+  <% _.each(items, function(item) { %>
+    <li><%- item.assignee %> : <%- item.task %></li>
+  <% }) %>
+</ul>
