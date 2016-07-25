@@ -54,15 +54,46 @@
 
 	var Backbone = __webpack_require__(2),
 	    Marionette = __webpack_require__(5),
+
 	    Todo = Marionette.LayoutView.extend({
 	      tagName: 'li',
 	      template: __webpack_require__(8)
 	    }),
-	    TodoList = Marionette.CollectionView.extend({
+
+	    TodoList = Marionette.CompositeView.extend({
 	      el: '#app-hook',
-	      tagName: 'ul',
-	      childView: Todo
+	      template: __webpack_require__(9),
+
+	      childView: Todo,
+	      childViewContainer: 'ul',
+
+	      ui: {
+	        assignee: '#id_assignee',
+	        form: 'form',
+	        task: '#id_task'
+	      },
+
+	      triggers: {
+	        'submit @ui.form': 'add:todo:item'
+	      },
+
+	      collectionEvents: {
+	        add: 'itemAdded'
+	      },
+
+	      onAddTodoItem: function() {
+	        this.collection.add({
+	          assignee: this.ui.assignee.val(),
+	          task: this.ui.task.val()
+	        });
+	      },
+
+	      itemAdded: function() {
+	        this.ui.assignee.val('');
+	        this.ui.task.val('');
+	      }
 	    }),
+
 	    todo = new TodoList({
 	      collection: new Backbone.Collection(
 	        [
@@ -17807,6 +17838,19 @@
 	};
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = function(obj){
+	var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+	with(obj||{}){
+	__p+='<ul></ul>\n\n<form>\n  <label for="id_task">Task</label>\n  <input type="text" name="task" id="id_task">\n  <label for="id_assignee">Assign to</label>\n  <input type="text" name="assignee" id="id_assignee">\n\n  <button id="btn-add">Add Item</button>\n</form>';
+	}
+	return __p;
+	};
+
 
 /***/ }
 /******/ ]);
