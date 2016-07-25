@@ -1,1 +1,1 @@
-[Marionette Guides](https://marionette.gitbooks.io/marionette-guides/) - (Todo App)[https://marionette.gitbooks.io/marionette-guides/content/en//appendix/getting_started/tutorial/todo_app.html]
+[Marionette Guides](https://marionette.gitbooks.io/marionette-guides/) : [Todo App](https://marionette.gitbooks.io/marionette-guides/content/en//appendix/getting_started/tutorial/todo_app.html)
