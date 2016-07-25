@@ -1,52 +1,21 @@
-var Backbone = require('backbone'),
-    Marionette = require('backbone.marionette'),
+var Marionette = require('backbone.marionette'),
+    TodoView = require('./views/layout.js'),
 
-    Todo = Marionette.LayoutView.extend({
-      tagName: 'li',
-      template: require('./templates/todoitem.html')
-    }),
+    initialData = [
+      {assignee: 'Peter', task: 'Get the milk'},
+      {assignee: 'Maggie', task: 'Watch Netflix'}
+    ],
 
-    TodoList = Marionette.CompositeView.extend({
-      el: '#app-hook',
-      template: require('./templates/todolist.html'),
-
-      childView: Todo,
-      childViewContainer: 'ul',
-
-      ui: {
-        assignee: '#id_assignee',
-        form: 'form',
-        task: '#id_task'
-      },
-
-      triggers: {
-        'submit @ui.form': 'add:todo:item'
-      },
-
-      collectionEvents: {
-        add: 'itemAdded'
-      },
-
-      onAddTodoItem: function() {
-        this.collection.add({
-          assignee: this.ui.assignee.val(),
-          task: this.ui.task.val()
+    app = new Marionette.Application({
+      onStart: function(options) {
+        var todo = new TodoView({
+          collection: new Backbone.Collection(options.initialData),
+          model: new TodoModel()
         });
-      },
 
-      itemAdded: function() {
-        this.ui.assignee.val('');
-        this.ui.task.val('');
+        todo.render();
+        todo.triggerMethod('show');
       }
-    }),
-
-    todo = new TodoList({
-      collection: new Backbone.Collection(
-        [
-          {assignee: 'Targaryen', task: 'Blood and Fire'},
-          {assignee: 'Baratheon', task: 'Ours is the fury'}
-        ]
-      )
     });
 
-todo.render();
+app.start({initialData: initialData});
